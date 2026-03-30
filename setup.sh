@@ -1,20 +1,20 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
 # =========================================
-# ⚡ KEVIN DEV TERMUX BOOTSTRAP INSTALLER v2
+# KEVIN DEV TERMUX BOOTSTRAP INSTALLER v2
 # =========================================
 
 set -e
 
-echo "🚀 Initializing Kevin Dev Environment..."
+echo "Initializing Kevin Dev Environment..."
 
 # -------------------------------
-# 📦 SYSTEM UPDATE
+# SYSTEM UPDATE
 # -------------------------------
 pkg update -y && pkg upgrade -y
 
 # -------------------------------
-# 🧰 CORE PACKAGES
+# CORE PACKAGES
 # -------------------------------
 pkg install -y git curl wget zsh fzf exa bat figlet toilet ruby
 
@@ -24,12 +24,12 @@ if ! command -v lolcat >/dev/null 2>&1; then
 fi
 
 # -------------------------------
-# 🐚 ZSH DEFAULT SHELL
+# ZSH DEFAULT SHELL
 # -------------------------------
 chsh -s zsh || true
 
 # -------------------------------
-# ⚙️ OH MY ZSH INSTALL (SAFE)
+# ⚙ OH MY ZSH INSTALL (SAFE)
 # -------------------------------
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
   echo "📦 Installing Oh My Zsh..."
@@ -41,12 +41,12 @@ else
 fi
 
 # -------------------------------
-# 🎨 POWERLEVEL10K THEME
+# POWERLEVEL10K THEME
 # -------------------------------
 P10K_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 
 if [ ! -d "$P10K_DIR" ]; then
-  echo "🎨 Installing Powerlevel10k..."
+  echo "Installing Powerlevel10k..."
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$P10K_DIR"
 else
   echo "✔ Powerlevel10k already exists"
@@ -66,15 +66,15 @@ if [ ! -d "$ZSH_PLUGINS_DIR/zsh-syntax-highlighting" ]; then
 fi
 
 # -------------------------------
-# 🧠 BACKUP EXISTING CONFIG
+# BACKUP EXISTING CONFIG
 # -------------------------------
 if [ -f "$HOME/.zshrc" ]; then
   cp "$HOME/.zshrc" "$HOME/.zshrc.backup.$(date +%s)"
-  echo "📁 Existing .zshrc backed up"
+  echo " Existing .zshrc backed up"
 fi
 
 # -------------------------------
-# ⚙️ WRITE CONFIG
+# ⚙ WRITE CONFIG
 # -------------------------------
 cat <<'EOF' > "$HOME/.zshrc"
 # Powerlevel10k instant prompt
@@ -90,7 +90,7 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # ==============================
-# ⚡ Aliases
+#  Aliases
 # ==============================
 alias ll="exa -lh --icons"
 alias la="exa -a --icons"
@@ -100,13 +100,13 @@ alias gc="git commit -m"
 alias gp="git push"
 
 # ==============================
-# 🚀 Environment
+#  Environment
 # ==============================
 export EDITOR=nano
 export PATH=$HOME/bin:$PATH
 
 # ==============================
-# 🎨 Branding
+#  Branding
 # ==============================
 [[ -f ~/.branding.sh ]] && source ~/.branding.sh
 
@@ -114,29 +114,29 @@ export PATH=$HOME/bin:$PATH
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # ==============================
-# 🚀 FIRST-RUN AUTO CONFIG
+# FIRST-RUN AUTO CONFIG
 # ==============================
 if [[ ! -f ~/.p10k.zsh ]]; then
-  echo "⚡ Running Powerlevel10k initial setup..."
+  echo " Running Powerlevel10k initial setup..."
   sleep 1
   p10k configure
 fi
 EOF
 
 # -------------------------------
-# 🎨 BRANDING
+# BRANDING
 # -------------------------------
 cat <<'EOF' > "$HOME/.branding.sh"
 clear
 figlet "Kevin Dev" | lolcat
-echo "⚡ Web Dev • Termux Workspace" | lolcat
+echo "Web Dev • Termux Workspace" | lolcat
 date
 EOF
 
 chmod +x "$HOME/.branding.sh"
 
 # -------------------------------
-# ✅ FINALIZATION
+# FINALIZATION
 # -------------------------------
 echo "✅ Installation complete. Launching Zsh..."
 
