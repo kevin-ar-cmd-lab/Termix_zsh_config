@@ -16,7 +16,7 @@ pkg update -y && pkg upgrade -y
 # -------------------------------
 # CORE PACKAGES
 # -------------------------------
-pkg install -y git curl wget zsh fzf exa bat figlet toilet ruby
+pkg install -y git curl wget zsh fzf eza bat figlet toilet ruby
 
 # Install lolcat safely
 if ! command -v lolcat >/dev/null 2>&1; then
