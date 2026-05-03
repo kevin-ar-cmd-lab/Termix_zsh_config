@@ -74,7 +74,7 @@ if [ -f "$HOME/.zshrc" ]; then
 fi
 
 # -------------------------------
-# ⚙ WRITE CONFIG
+# ⚙ WRITE CONFIG (UPDATED)
 # -------------------------------
 cat <<'EOF' > "$HOME/.zshrc"
 # Powerlevel10k instant prompt
@@ -90,10 +90,13 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 # ==============================
-#  Aliases
+#  Aliases (eza - fixed)
 # ==============================
-alias ll="exa -lh --icons"
-alias la="exa -a --icons"
+alias ls="eza --icons=auto --group-directories-first"
+alias ll="eza -lh --icons=auto --group-directories-first"
+alias la="eza -a --icons=auto --group-directories-first"
+alias lt="eza --tree --level=2 --icons"
+
 alias gs="git status"
 alias ga="git add ."
 alias gc="git commit -m"
@@ -106,12 +109,14 @@ export EDITOR=nano
 export PATH=$HOME/bin:$PATH
 
 # ==============================
-#  Branding
+#  Branding (Interactive Only)
 # ==============================
-[[ -f ~/.branding.sh ]] && source ~/.branding.sh
+if [[ $- == *i* ]]; then
+  [[ -f ~/.branding.sh ]] && source ~/.branding.sh
+fi
 
 # Load Powerlevel10k config
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
 # ==============================
 # FIRST-RUN AUTO CONFIG
@@ -127,10 +132,12 @@ EOF
 # BRANDING
 # -------------------------------
 cat <<'EOF' > "$HOME/.branding.sh"
-clear
-figlet "Kevin Dev" | lolcat
-echo "Web Dev • Termux Workspace" | lolcat
-date
+if [[ $- == *i* ]]; then
+  clear
+  figlet "Kevin Dev" | lolcat
+  echo "Web Dev • Termux Workspace" | lolcat
+  date
+fi
 EOF
 
 chmod +x "$HOME/.branding.sh"
